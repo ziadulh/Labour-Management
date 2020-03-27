@@ -30,4 +30,8 @@ Route::get('addAttendence/{id}','LabourController@addAttendence')->name('labour.
 Route::put('addAttendence/{id}/store','LabourController@addAttendenceStore')->name('labour.addAttendenceStore');
 Route::resource('/labour','LabourController');
 
+Route::get('/buidingWiseReport','ReportController@building')->name('labour.find');
+Route::get('/buidingWiseCostReport','ReportController@buildingCostReport')->name('buildingCost.report');
+Route::get('/groupWiseCostReport','ReportController@groupCostReport')->name('groupCost.report');
+
 

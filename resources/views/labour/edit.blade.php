@@ -74,10 +74,7 @@
                                 <input type="text" class="form-control" id="attendance_rate" value="{{ $labour->attendance_rate }}" name="attendance_rate">
                             </div>
 
-                            <div class="form-group">
-                                <label for="total_attendance"><span style="color:red">*</span>Total attendance</label>
-                                <input type="text" class="form-control" id="total_attendance" value="{{ $labour->total_attendance }}" name="total_attendance">
-                            </div>
+                            
 
                             <div class="form-group">
                                 <label for="food_rate"><span style="color:red">*</span>Food rate</label>
@@ -93,12 +90,17 @@
 
 
 
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="background-color: green">
+
+                            <div class="form-group">
+                                <label for="total_attendance"><span style="color:red">*</span>Total attendance</label>
+                                <input type="text" class="form-control" id="total_attendance" value="{{ $labour->total_attendance }}" name="total_attendance">
+                            </div>
 
 
                             <div class="form-group">
                                 <label for="total_salary"><span style="color:red">*</span>Total salary</label>
-                                <input type="text" class="form-control" id="total_salary" value="{{ $labour->total_salary }}" name="total_salary">
+                                <input type="text" class="form-control" id="total_salary" value="{{ $labour->total_salary }}" name="total_salary" readonly>
                             </div>
 
                             <div class="form-group">
@@ -108,29 +110,29 @@
 
                             <div class="form-group">
                                 <label for="total_due"><span style="color:red">*</span>Total due</label>
-                                <input type="text" class="form-control" id="total_due" value="{{ $labour->total_due }}" name="total_due">
+                                <input type="text" class="form-control" id="total_due" value="{{ $labour->total_due }}" name="total_due" readonly>
                             </div>
 
                             
 
                             <div class="form-group">
                                 <label for="total_food_rate"><span style="color:red">*</span>Total Food rate</label>
-                                <input type="text" class="form-control" id="total_food_rate" value="{{ $labour->total_food_rate }}" name="total_food_rate">
+                                <input type="text" class="form-control" id="total_food_rate" value="{{ $labour->total_food_rate }}" name="total_food_rate" readonly>
                             </div>
 
                             <div class="form-group">
                                 <label for="due_foodrate"><span style="color:red">*</span>Total Due Food rate</label>
-                                <input type="text" class="form-control" id="due_foodrate" value="{{ $labour->due_foodrate }}" name="due_foodrate">
+                                <input type="text" class="form-control" id="due_foodrate" value="{{ $labour->due_foodrate }}" name="due_foodrate" readonly>
                             </div>
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label><span style="color:red">*</span>Status</label>
                                 <select class="form-control " style="width: 100%;" name="status">
                                     <option {{ ($labour->status == 1) ? 'selected' : '' }} value="1" >Yes</option>
                                     <option {{ ($labour->status == 0) ? 'selected' : '' }} value="0">No</option>
                                 </select>
                             
-                            </div>
+                            </div> -->
 
 
                             

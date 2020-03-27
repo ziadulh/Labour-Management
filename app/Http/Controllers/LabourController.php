@@ -103,9 +103,9 @@ class LabourController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required', 'joining_date' => 'required', 'attendance_rate' => 'required | integer', 'food_rate' => 'required | integer', 'total_attendance' => 'required | integer', 'total_salary' => 'required | integer', 'total_paid' => 'required | integer', 'total_due' => 'required | integer',
-        ]);
+        // $request->validate([
+        //     'name' => 'required', 'joining_date' => 'required', 'attendance_rate' => 'required | integer', 'food_rate' => 'required | integer', 'total_attendance' => 'required | integer', 'total_salary' => 'required | integer', 'total_paid' => 'required | integer', 'total_due' => 'required | integer',
+        // ]);
 
         labour::where('id', $id)
           ->update([
@@ -125,8 +125,21 @@ class LabourController extends Controller
             'total_paid' => $request->input('total_paid'),
             'total_due' => $request->input('total_due'),
 
-            'status' => $request->input('status'),
+            // 'status' => $request->input('status'),
             'updated_by' => auth()->user()->id,
+          ]);
+
+          $data = Labour::find($id);
+
+
+          labour::where('id', $id)
+          ->update([
+
+            'total_salary' => ($data->total_attendance * $data->attendance_rate),
+            'total_due' => ($data->total_attendance * $data->attendance_rate) - $data->total_paid,
+            'total_food_rate' => ($data->total_attendance * $data->food_rate),
+            'due_foodrate' => ($data->total_attendance * $data->food_rate) - $data->total_paid,
+
           ]);
 
           return redirect(route('labour.edit',$id))->with('success', 'Your Labour type information has been updated successfully!');

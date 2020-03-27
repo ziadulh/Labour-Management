@@ -65,7 +65,7 @@
                   <th>Type</th>
                   <th>Group</th>
                   <th>Building</th>
-                  <th>id</th>
+                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -90,7 +90,15 @@
 			                  	<td>{{$bldng->name}}</td>
 			                  @endif
 			              @endforeach
-		                  <td>{{$lbr->id}}</td>
+		                  <td >
+                            <form action="{{route('labour.destroy',$lbr->id)}}" method="post" >
+                                @csrf
+                                {{method_field('delete')}}
+                                <button class="btn btn-primary alert-danger fas fa-trash-alt" onclick="return confirm('Are you sure?')" type="submit"></button>
+                                <a href="{{  route('labour.edit',$lbr->id)  }}"><i class=" btn btn-primary fa fa-edit"></i></a>
+                                <a href="{{  route('labour.show',$lbr->id)  }}"><i class=" btn btn-primary"><b>i</b></i></a>
+                            </form>
+                        </td>
 		                </tr>
                 	@endforeach
                 
