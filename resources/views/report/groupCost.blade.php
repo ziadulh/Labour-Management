@@ -2,55 +2,59 @@
 
 @section('content')
 <section class="content">
-      <div class="row">
-        <div class="col-12">
+  <div class="row">
+    <div class="col-12">
 
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">DataTable with default features</h3>
-            </div>
-            
-            <!-- /.card-header -->
-            <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                	<tr>
-	                    <th>Building Name</th>
-                      <th>Total Cost</th>
-	                </tr>
-                </thead>
-                <tbody>
-                  @foreach($labour as $lb)
-                	   <tr>
-                      <td>
-                        @foreach($group as $gp)
-                            @if($gp->id == $lb[0]->group_id)
-                                {{$gp->name}}
-                            @endif
-                        @endforeach
-                        
-
-                        
-
-                      </td>
-                          @php
-                                $sum = 0;
-                                foreach($lb as $lb){
-                                $sum = $sum + $lb->total_salary;
-                              }
-                          @endphp       
-                      <td>{{$sum}}</td>
-                    </tr>
-                  @endforeach
-                	
-                
-                </tbody>
-              </table>
-            </div>
-          </div>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">DataTable with default features</h3>
         </div>
-      </div>
-    </section>
+        
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+             <tr>
+               <th>Building Name</th>
+               <th>Total Cost</th>
+               <th>Total Due</th>
+             </tr>
+           </thead>
+           <tbody>
+            @foreach($labour as $lb)
+            <tr>
+              <td>
+                @foreach($group as $gp)
+                @if($gp->id == $lb[0]->group_id)
+                {{$gp->name}}
+                @endif
+                @endforeach
+                
+
+                
+
+              </td>
+              @php
+              $sum = 0;
+              $due = 0;
+              foreach($lb as $lb){
+              $sum = $sum + $lb->total_paid;
+              $due = $due + $lb->total_salary;
+            }
+            @endphp       
+            <td>{{$sum}}</td>
+            <td>{{$due - $sum}}</td>
+          </tr>
+          @endforeach
+          
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+</section>
 @endsection
 
 @section('cs')

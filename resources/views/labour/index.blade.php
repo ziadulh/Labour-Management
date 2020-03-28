@@ -4,86 +4,87 @@
 
 @section('content')
 <section class="content">
-      <div class="row">
-        <div class="col-12">
+  <div class="row">
+    <div class="col-12">
 
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Labour Informations</h3>
-            </div>
-            
-            <!-- /.card-header -->
-            <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th style="width: 200px">Change</th>
-                        <th >Job ID</th>
-                        <th>Name</th>
-                        <th>Labour Type</th>
-                        <th>Group</th>
-                        <th>Building</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  @foreach ($labour as $key => $data)
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Labour Informations</h3>
+        </div>
 
-                    <tr>
-                        <td >
-                            <form action="{{route('labour.destroy',$data->id)}}" method="post" >
-                                @csrf
-                                {{method_field('delete')}}
-                                <button class="btn btn-primary alert-danger fas fa-trash-alt" onclick="return confirm('Are you sure?')" type="submit"></button>
-                                <a href="{{  route('labour.edit',$data->id)  }}"><i class=" btn btn-primary fa fa-edit"></i></a>
-                                <a href="{{  route('labour.show',$data->id)  }}"><i class=" btn btn-primary"><b>i</b></i></a>
-                                <a href="{{  route('labour.addAttendence',$data->id)  }}"><i class=" btn btn-primary">U</i></a>
-                            </form>
-                        </td>
-                        <td>{{'EP-'}}{{$key}}</td>
-                        <td>{{$data->name}}</td>
-                        <td>
-                            @foreach($labourType as $lt)
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width: 200px">Action</th>
+                <th >Job ID</th>
+                <th>Name</th>
+                <th>Labour Type</th>
+                <th>Group</th>
+                <th>Building</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($labour as $key => $data)
 
-                                @if($lt->id == $data->labour_type)
-                                {{$lt->name}}
-                                @endif
+              <tr>
+                <td >
+                  <form action="{{route('labour.destroy',$data->id)}}" method="post" >
+                    @csrf
+                    {{method_field('delete')}}
+                    <button class="btn btn-primary alert-danger fas fa-trash-alt" onclick="return confirm('Are you sure?')" type="submit"></button>
+                    <a href="{{  route('labour.edit',$data->id)  }}"><i class=" btn btn-primary fa fa-edit"></i></a>
+                    <a href="{{  route('labour.show',$data->id)  }}"><i class="btn btn-primary"><b>i</b></i></a>
+                    <a class="btn btn-primary" href="{{  route('labour.addAttendence',$data->id)  }}"><i class="fa fa-cutlery">L</i></a>
+                    <a class="btn btn-primary" href="{{  route('labour.billPay',$data->id)  }}"><i class="fab fa-btc"></i></a>
+                  </form>
+                </td>
+                <td>{{'EP-'}}{{$data->id}}</td>
+                <td>{{$data->name}}</td>
+                <td>
+                  @foreach($labourType as $lt)
 
-                            @endforeach
-                        </td>
+                  @if($lt->id == $data->labour_type)
+                  {{$lt->name}}
+                  @endif
 
-                        <td>
-                            @foreach($group as $lt)
+                  @endforeach
+                </td>
 
-                                @if($lt->id == $data->group_id)
-                                {{$lt->name}}
-                                @endif
+                <td>
+                  @foreach($group as $lt)
 
-                            @endforeach
-                        </td>
+                  @if($lt->id == $data->group_id)
+                  {{$lt->name}}
+                  @endif
 
-                        <td>
-                            @foreach($building as $lt)
+                  @endforeach
+                </td>
 
-                                @if($lt->id == $data->building_id)
-                                {{$lt->name}}
-                                @endif
+                <td>
+                  @foreach($building as $lt)
 
-                            @endforeach
-                        </td>
+                  @if($lt->id == $data->building_id)
+                  {{$lt->name}}
+                  @endif
+
+                  @endforeach
+                </td>
 
 
-                    </tr>
-                    
-                @endforeach
-                    
-                
-                </tbody>
-              </table>
-            </div>
-          </div>
+              </tr>
+
+              @endforeach
+
+
+            </tbody>
+          </table>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 @endsection
 
 @section('cs')

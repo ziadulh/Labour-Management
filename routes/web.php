@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 Auth::routes();
@@ -35,3 +35,7 @@ Route::get('/buidingWiseCostReport','ReportController@buildingCostReport')->name
 Route::get('/groupWiseCostReport','ReportController@groupCostReport')->name('groupCost.report');
 
 
+
+// Bill Payment Route 
+Route::get('billPayment/{id}','LabourController@billPaymentView')->name('labour.billPay');
+Route::post('billPaymentStore/{id}','LabourController@billPaymentStore')->name('labour.billPayStore');

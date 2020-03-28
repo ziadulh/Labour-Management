@@ -46,9 +46,9 @@ class LabourController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'name' => 'required', 'joining_date' => 'required', 'attendance_rate' => 'required | integer', 'food_rate' => 'required | integer',
-        // ]);
+        $request->validate([
+            'name' => 'required', 'joining_date' => 'required', 'attendance_rate' => 'required | integer', 'food_rate' => 'required | integer',
+        ]);
 
         $data = array(
             'name' => $request->input('name'),
@@ -103,12 +103,12 @@ class LabourController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'name' => 'required', 'joining_date' => 'required', 'attendance_rate' => 'required | integer', 'food_rate' => 'required | integer', 'total_attendance' => 'required | integer', 'total_salary' => 'required | integer', 'total_paid' => 'required | integer', 'total_due' => 'required | integer',
-        // ]);
+        $request->validate([
+            'name' => 'required', 'joining_date' => 'required', 'attendance_rate' => 'required | integer', 'food_rate' => 'required | integer', 'total_attendance' => 'required | numeric', 'total_salary' => 'required | integer', 'total_paid' => 'required | integer', 'total_due' => 'required | integer',
+        ]);
 
         labour::where('id', $id)
-          ->update([
+        ->update([
             'name' => $request->input('name'),
             'joining_date' => $request->input('joining_date'),
             'labour_type' => $request->input('labour_type'),
@@ -125,24 +125,24 @@ class LabourController extends Controller
             'total_paid' => $request->input('total_paid'),
             'total_due' => $request->input('total_due'),
 
-            // 'status' => $request->input('status'),
+            'status' => $request->input('status'),
             'updated_by' => auth()->user()->id,
-          ]);
+        ]);
 
-          $data = Labour::find($id);
+        $data = Labour::find($id);
 
 
-          labour::where('id', $id)
-          ->update([
+        labour::where('id', $id)
+        ->update([
 
             'total_salary' => ($data->total_attendance * $data->attendance_rate),
             'total_due' => ($data->total_attendance * $data->attendance_rate) - $data->total_paid,
             'total_food_rate' => ($data->total_attendance * $data->food_rate),
             'due_foodrate' => ($data->total_attendance * $data->food_rate) - $data->total_paid,
 
-          ]);
+        ]);
 
-          return redirect(route('labour.edit',$id))->with('success', 'Your Labour type information has been updated successfully!');
+        return redirect(route('labour.edit',$id))->with('success', 'Your Labour type information has been updated successfully!');
     }
 
     /**
@@ -174,7 +174,7 @@ class LabourController extends Controller
         labour::where('id', $id)
         ->update([
             'total_attendance' => $data->total_attendance + $request->input('attendence'),
-          ]);
+        ]);
 
         $data2 = Labour::find($id);
 
@@ -198,11 +198,32 @@ class LabourController extends Controller
                 'total_paid' => ($data2->food_rate)*$request->input('attendence') + $data2->total_paid,
                 'total_due' => ($data2->total_attendance * $data2->attendance_rate) - (($data2->food_rate)*$request->input('attendence') + $data2->total_paid),
                 'due_foodrate' => ($data2->total_attendance * $data2->food_rate) - (($data2->food_rate)*$request->input('attendence') + $data2->total_paid),
-          ]);
+            ]);
 
         }
 
-          return redirect(route('labour.index',$id))->with('success', 'Your Labour type information has been updated successfully!');
+        return redirect(route('labour.index',$id))->with('success', 'Your Labour type information has been updated successfully!');
     }
+
+    //Employee Bill payment Function 
+    public function billPaymentView($id){
+
+        $amounts = Labour::select('total_salary', 'total_food_rate')
+        ->where('id',$id)
+        ->first();
+
+        $dueBill = $amounts->total_salary - $amounts->total_food_rate;
+
+        return view('labour.billPay',compact('id','dueBill'));
+    }
+
+    public function billPaymentStore (Request $request, $id){
+        $request->validate([
+            'billPaymentAmount' => 'required | integer',
+        ]);
+        dd($request->billPaymentAmount);
+        exit();
+        return redirect(route('labour.index',$id))->with('success', 'Bill Payment has been updated successfully!');
+    } 
 
 }
