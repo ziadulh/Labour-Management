@@ -54,9 +54,9 @@
 
                         <div class="form-group">
                             <label for="group_id"><span style="color:red">*</span>Group</label>
-                            <select id="group_id" class="form-control " style="width: 100%;" name="group_id">
+                            <select id="group_id" class="form-control " style="width: 100%;" name="group_id" disabled="">
                                 @foreach($group as $group)
-                                <option value="{{$group->id}}" {{ ($group->id == $labour->group_id)? 'selected' : '' }} > {{$group->name}}</option>
+                                <option value="{{$group->id}}" {{ ($group->id == $labour->group_id)? 'selected' : '' }}> {{$group->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -77,10 +77,10 @@
 
 
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="food_rate"><span style="color:red">*</span> খোরাকী Rate</label>
                             <input type="text" class="form-control" id="food_rate" value="{{ $labour->food_rate }}" name="food_rate">
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <label for="total_paid"><span style="color:red">*</span>Total  খোরাকী Paid</label>
@@ -123,7 +123,7 @@
 
                         <div class="form-group">
                             <label for="due_foodrate"><span style="color:red">*</span> Due খোরাকী </label>
-                            <input type="text" class="form-control" id="due_foodrate" value="{{ $labour->due_foodrate }}" name="due_foodrate" readonly>
+                            <input type="text" class="form-control" id="due_foodrate" value="{{ $labour->total_food_rate - $labour->total_paid }}" name="due_foodrate" readonly>
                         </div>
 
                         <div class="form-group">

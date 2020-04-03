@@ -21,9 +21,9 @@ class CreateLaboursTable extends Migration
             $table->bigInteger('group_id');
             $table->bigInteger('building_id');
             $table->integer('attendance_rate');
-            $table->integer('food_rate');
+            $table->integer('food_rate')->default(0);
             $table->bigInteger('total_food_rate')->default(0);
-            $table->bigInteger('due_foodrate')->default(0);
+            // $table->bigInteger('due_foodrate')->default(0);
             $table->decimal('total_attendance', 8, 2)->default(0);
             $table->bigInteger('total_salary')->default(0);
             $table->bigInteger('total_paid')->default(0);

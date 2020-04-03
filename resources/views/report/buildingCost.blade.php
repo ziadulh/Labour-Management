@@ -21,36 +21,41 @@
              </tr>
            </thead>
            <tbody>
-            @foreach($labour as $lb)
-            <tr>
-              <td>
-                @foreach($building as $bl)
-                @if($bl->id == $lb[0]->building_id)
-                {{$bl->name}}
+
+            @foreach($building as $key => $bl)
+              <tr>
+                <td><a href="{{route('perbuilding.cost',$bl->id)}}">{{$bl->name}}</a></td>
+                @if(isset($log[$key]) && $bl->id == $log[$key]->building_id)
+                  @foreach($total_array as $tbl => $tbl_cost)
+                    @if($tbl == $bl->id)
+                      <td>{{$tbl_cost + (isset($sl_arr[$bl->id]) ? $sl_arr[$bl->id] : 0)}}</td>
+                      <td>{{$tbl_cost - $log[$key]->total_paid}}</td>
+                    @endif
+                  @endforeach
+                @else
+                  <td>{{0}}</td>
+                  <td>{{0}}</td>
                 @endif
+              </tr>
+              
+            @endforeach
+
+
+
+            <!-- @foreach($log as $log)
+              <tr>
+                @foreach($building as $bl)
+                  @if($bl->id == $log->building_id)
+                    <td><a href="{{route('perbuilding.cost',$log->building_id)}}">{{$bl->name}}</a></td>
+                  @endif
                 @endforeach
+                  <td>{{$log->total_food}}</td>
+                  <td>{{$log->total_food - $log->total_paid}}</td>
+              </tr>
+            @endforeach -->
+  
 
-
-
-
-              </td>
-              @php
-              $sum = 0;
-              $due = 0;
-              foreach($lb as $lb){
-              $sum = $sum + $lb->total_paid;
-              $due = $due + $lb->total_salary;
-            }
-
-            @endphp       
-            <td>{{$sum}}</td>
-
-            <td>{{$due - $sum}}</td>
-          </tr>
-          @endforeach
-
-
-        </tbody>
+           </tbody>
       </table>
     </div>
   </div>
@@ -80,6 +85,11 @@
   });
 </script>
 @endsection
+
+
+
+
+
 
 
 

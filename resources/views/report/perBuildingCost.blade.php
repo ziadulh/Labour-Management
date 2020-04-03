@@ -7,42 +7,40 @@
 
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">DataTable with default features</h3>
+          <h3 class="card-title">DataTable with all buildings</h3>
         </div>
-        
+
         <!-- /.card-header -->
         <div class="card-body">
           <table id="example1" class="table table-bordered table-striped">
             <thead>
              <tr>
-               <th>Building Name</th>
-               <th>Total Cost</th>
-               <th>Total Due</th>
+
+                <td>Data</td>
+                <td>Paid To</td>
+                <td>Paid amount</td>
+             	
              </tr>
            </thead>
-           <tbody>
-            
-            @foreach($group as $key => $gl)
-              <tr>
-                <td><a href="{{route('pergroup.cost',$gl->id)}}">{{$gl->name}}</a></td>
-                @if(isset($log[$key]))
-                  @foreach($total_array as $tgl => $tgl_cost)
 
-                    @if($tgl == $gl->id)
-                      <td>{{$tgl_cost}}</td>
-                      <td>{{$tgl_cost - $log[$key]->total_paid}}</td>
-                    @endif
-                  @endforeach
-                @else
-                  <td>{{0}}</td>
-                  <td>{{0}}</td>
-                @endif
+           <tbody>
+
+            @foreach($building_cost as $bc)
+              <tr>
+                <td>{{$bc->food_rate_date}}</td>
+                @foreach($labour as $lbr)
+                  @if($lbr->id == $bc->labour_id)
+                    <td>{{$lbr->name}}</td>
+                  @endif
+                @endforeach
+                
+                <td>{{$bc->food_rate_paid}}</td>
               </tr>
-              
             @endforeach
-          
-          
-        </tbody>
+
+	           	
+
+           </tbody>
       </table>
     </div>
   </div>

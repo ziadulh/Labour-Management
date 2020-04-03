@@ -141,6 +141,35 @@
           </li>
 
 
+          <li class="nav-item has-treeview {{((Route::currentRouteName()) == ('salarybasedemployee.create')) || ((Route::currentRouteName()) == ('salarybasedemployee.index'))  || ((Route::currentRouteName()) == ('salarybasedemployee.edit')) ||  ((Route::currentRouteName()) == ('salarybasedemployee.show'))? 'menu-open' : ''}}">
+
+            <a href="#" class="nav-link {{((Route::currentRouteName()) == ('salarybasedemployee.create')) || ((Route::currentRouteName()) == ('salarybasedemployee.index'))  || ((Route::currentRouteName()) == ('salarybasedemployee.edit')) || ((Route::currentRouteName()) == ('salarybasedemployee.show')) ? 'active' : ''}}">
+              <i class="nav-icon fa fa-credit-card"></i>
+              <p>
+                Salary Based Employee
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+
+              <li class="nav-item">
+                <a href="{{route('salarybasedemployee.create')}}" class="nav-link {{((Route::currentRouteName()) == ('salarybasedemployee.create')) ? 'active' : ''}}">
+                  <i class="fa fa-plus nav-icon"></i>
+                  <p>Add</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{  route('salarybasedemployee.index')  }}" class="nav-link {{((Route::currentRouteName()) == ('salarybasedemployee.index')) ? 'active' : ''}}">
+                  <i class="fa fa-list nav-icon"></i>
+                  <p>List</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+
           <li class="nav-item has-treeview {{((Route::currentRouteName()) == ('groupCost.report')) || ((Route::currentRouteName()) == ('labour.find')) || ((Route::currentRouteName()) == ('buildingCost.report'))? 'menu-open' : ''}}">
 
             <a href="#" class="nav-link {{((Route::currentRouteName()) == ('groupCost.report')) || ((Route::currentRouteName()) == ('labour.find')) || ((Route::currentRouteName()) == ('buildingCost.report')) ? 'active' : ''}}">

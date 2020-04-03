@@ -41,8 +41,9 @@
                <div class="form-group">
                 <label for="group_id"><span style="color:red">*</span>Group</label>
                 <select class="form-control " id="group_id" style="width: 100%;" name="group_id">
+                   <option value="-1">Choose Group</option>
                    @foreach($group as $group)
-                   <option value="{{$group->id}}" > {{$group->name}}</option>
+                    <option value="{{$group->id}}" > {{$group->name}}</option>
                    @endforeach
                </select>
            </div>
@@ -50,9 +51,9 @@
            <div class="form-group">
             <label for="building_id"><span style="color:red">*</span>Group</label>
             <select id="building_id" class="form-control " style="width: 100%;" name="building_id">
-               @foreach($building as $building)
+               <!-- @foreach($building as $building)
                <option value="{{$building->id}}" > {{$building->name}}</option>
-               @endforeach
+               @endforeach -->
            </select>
        </div>
 
@@ -61,10 +62,10 @@
         <input type="text" class="form-control" id="attendance_rate" value="{{  old('attendance_rate')  }}" name="attendance_rate">
     </div>
 
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="food_rate"><span style="color:red">*</span>Food Rate</label>
         <input type="text" class="form-control" id="food_rate" value="{{  old('food_rate')  }}" name="food_rate">
-    </div>
+    </div> -->
 
     <div class="form-group">
         <label for="status"><span style="color:red">*</span>Status</label>
@@ -85,4 +86,40 @@
 
 </div>
 
+@endsection
+
+@section('js')
+  <script>
+    $(document).ready(function () {
+
+
+      $('#group_id').on('change',function () {
+            $('select[name="building_id"]').empty();
+            var group_id_val =$(this).val();
+            if(group_id_val){
+                $.ajax({
+                    type:'GET',
+                    url:'{{route('findBuilding')}}',
+                    data:{'id':group_id_val},
+                    dataType:'json',
+                    success:function(data) {
+                        $('select[name="building_id"]').append('<option>Choose Building</option>');
+                        $.each(data, function(key,value){
+                            console.log(key);
+                            $('select[name="building_id"]').append('<option value="'+key+'" >' + value +'</option>');
+                        });
+                    }
+                });
+            }
+            else{
+                $('select[name="building_id"]').empty();
+            }
+        });
+
+
+
+        
+
+    });
+</script>
 @endsection

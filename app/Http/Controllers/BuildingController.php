@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Building;
 use App\Group;
+use App\Salary_log;
 
 class BuildingController extends Controller
 {
@@ -72,9 +73,15 @@ class BuildingController extends Controller
     public function edit($id)
 
     {
-        $group = Group::get();
-        $building = Building::find($id);
-        return view('building.edit',compact(['building','group']));
+        $log_table_testing = Salary_log::where('building_id',$id)->first();
+        if($log_table_testing){
+            echo "you can not make any changes because already make transection with this building!";
+        }else{
+            $group = Group::get();
+            $building = Building::find($id);
+            return view('building.edit',compact(['building','group']));
+        }
+        
     }
 
     /**
