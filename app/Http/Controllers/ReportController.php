@@ -9,6 +9,7 @@ use App\Group;
 use App\Building;
 use App\Salary_log;
 use App\Salary_Based_log;
+use App\Salary_Based_Employee;
 use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
@@ -75,6 +76,7 @@ class ReportController extends Controller
                ->selectRaw('sum(salary) as salary, building_id')
                ->orderBy('building_id', 'asc')
                ->get();
+        
         foreach($s_log as $sl){
             $sl_arr[$sl->building_id] = $sl->salary;
         }
@@ -115,14 +117,17 @@ class ReportController extends Controller
     public function perbuildingcost($id){
         $labour = Labour::get();
         $building_cost = Salary_log::where('building_id',$id)->get();
-        return view('report.perBuildingCost',compact(['building_cost','labour']));
+        $sb_log = Salary_Based_log::where('building_id',$id)->get();
+        $emp = Salary_Based_Employee::get();
+        return view('report.perBuildingCost',compact(['building_cost','labour','sb_log','emp']));
     }
 
     public function pergroupcost($id){
 
         $labour = Labour::get();
         $group_cost = Salary_log::where('group_id',$id)->get();
-        return view('report.perGroupCost',compact(['group_cost','labour']));
+        $building = Building::get();
+        return view('report.perGroupCost',compact(['group_cost','labour','building']));
 
     }
 }

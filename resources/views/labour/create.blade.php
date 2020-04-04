@@ -49,7 +49,7 @@
            </div>
 
            <div class="form-group">
-            <label for="building_id"><span style="color:red">*</span>Group</label>
+            <label for="building_id"><span style="color:red">*</span>Building</label>
             <select id="building_id" class="form-control " style="width: 100%;" name="building_id">
                <!-- @foreach($building as $building)
                <option value="{{$building->id}}" > {{$building->name}}</option>

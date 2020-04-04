@@ -19,6 +19,7 @@
                 <td>Data</td>
                 <td>Paid To</td>
                 <td>Paid amount</td>
+                <td>Building Name</td>
              	
              </tr>
            </thead>
@@ -36,10 +37,13 @@
                 @endforeach
                 
                 <td>{{$gp->food_rate_paid}}</td>
+                @foreach($building as $bl)
+                  @if($bl->id == $gp->building_id)
+                    <td>{{$bl->name}}</td>
+                  @endif
+                @endforeach
               </tr>
             @endforeach
-
-	           	
 
            </tbody>
       </table>

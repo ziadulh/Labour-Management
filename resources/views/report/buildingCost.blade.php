@@ -16,6 +16,7 @@
             <thead>
              <tr>
                <th>Building Name</th>
+               <th>Total Amount</th>
                <th>Total Cost</th>
                <th>Total Due</th>
              </tr>
@@ -29,10 +30,12 @@
                   @foreach($total_array as $tbl => $tbl_cost)
                     @if($tbl == $bl->id)
                       <td>{{$tbl_cost + (isset($sl_arr[$bl->id]) ? $sl_arr[$bl->id] : 0)}}</td>
+                      <td>{{$log[$key]->total_paid}} + {{(isset($sl_arr[$bl->id]) ? $sl_arr[$bl->id] : 0)}}(salary paid)</td>
                       <td>{{$tbl_cost - $log[$key]->total_paid}}</td>
                     @endif
                   @endforeach
                 @else
+                  <td>{{0}}</td>
                   <td>{{0}}</td>
                   <td>{{0}}</td>
                 @endif

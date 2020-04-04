@@ -37,7 +37,7 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required']);
+        $request->validate(['name' => 'required | unique:groups']);
 
         $data = array(
             'name' => $request->input('name'),
@@ -82,7 +82,7 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate(['name' => 'required']);
+        $request->validate(['name' => 'required ']);
 
         Group::where('id', $id)
           ->update([

@@ -29,7 +29,13 @@
                 </td>
                 <td>{{$key+1}}</td>
                 <td>{{$data->name}}</td>
-                <td>{{$data->group_id}}</td>
+                <td>
+                    @foreach($gp as $g)
+                        @if($g->id == $data->group_id)
+                            {{$g->name}}
+                        @endif
+                    @endforeach
+                </td>
             </tr>
 
             @endforeach

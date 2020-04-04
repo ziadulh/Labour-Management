@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="building_id"><span style="color:red">*</span>Labour Type</label>
+                    <label for="building_id"><span style="color:red">*</span>Building</label>
                     <select class="form-control " id="building_id" style="width: 100%;" name="building_id">
                        @foreach($building as $bld)
                        <option value="{{$bld->id}}" > {{$bld->name}}</option>

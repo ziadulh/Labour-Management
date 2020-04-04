@@ -38,6 +38,19 @@
               </tr>
             @endforeach
 
+            @foreach($sb_log as $sb_log)
+              <tr>
+                <td>{{$sb_log->month}}</td>
+                @foreach($emp as $em)
+                  @if($em->id == $sb_log->employee_id)
+                    <td>{{$em->name}}</td>
+                  @endif
+                @endforeach
+                
+                <td>{{$sb_log->salary}}</td>
+              </tr>
+            @endforeach
+
 	           	
 
            </tbody>

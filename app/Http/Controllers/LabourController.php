@@ -48,7 +48,7 @@ class LabourController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required', 'joining_date' => 'required', 'attendance_rate' => 'required | integer',
+            'name' => 'required | unique:labours', 'joining_date' => 'required', 'attendance_rate' => 'required | integer',
         ]);
 
         $data = array(
@@ -107,7 +107,7 @@ class LabourController extends Controller
 
 
         $request->validate([
-            'name' => 'required', 'joining_date' => 'required', 'attendance_rate' => 'required | integer', 'total_attendance' => 'required | numeric', 'total_salary' => 'required | integer', 'total_paid' => 'required | integer', 'total_due' => 'required | integer',
+            'name' => 'required ', 'joining_date' => 'required', 'attendance_rate' => 'required | integer', 'total_attendance' => 'required | numeric', 'total_salary' => 'required | integer', 'total_paid' => 'required | integer', 'total_due' => 'required | integer',
         ]);
 
         labour::where('id', $id)
@@ -127,7 +127,7 @@ class LabourController extends Controller
             'total_salary' => $request->input('total_salary'),
             'total_paid' => $request->input('total_paid'),
             'total_due' => $request->input('total_due'),
-            'total_food_rate' => $request->input('food_rate'),
+            // 'total_food_rate' => $request->input('food_rate'),
 
             'status' => $request->input('status'),
             'updated_by' => auth()->user()->id,

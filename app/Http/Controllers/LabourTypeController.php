@@ -36,7 +36,7 @@ class LabourTypeController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required']);
+        $request->validate(['name' => 'required | unique:labour_types']);
 
         $data = array(
             'name' => $request->input('name'),

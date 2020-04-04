@@ -17,7 +17,8 @@ class BuildingController extends Controller
     public function index()
     {
         $data = Building::get();
-        return view('building.index',compact('data'));
+        $gp = Group::get();
+        return view('building.index',compact(['data','gp']));
     }
 
     /**
@@ -39,7 +40,7 @@ class BuildingController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required', 'group_id' => 'required']);
+        $request->validate(['name' => 'required | unique:buildings', 'group_id' => 'required']);
 
         $data = array(
             'name' => $request->input('name'),
@@ -93,7 +94,7 @@ class BuildingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate(['name' => 'required']);
+        $request->validate(['name' => 'required ']);
 
         Building::where('id', $id)
           ->update([
