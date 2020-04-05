@@ -22,7 +22,7 @@
                 <th>Name</th>
                 <th>Labour Type</th>
                 <th>Group</th>
-                <th>Building</th>
+                <!-- <th>Building</th> -->
               </tr>
             </thead>
             <tbody>
@@ -35,7 +35,7 @@
                     {{method_field('delete')}}
                     <button class="btn btn-primary alert-danger fas fa-trash-alt" onclick="return confirm('Are you sure?')" type="submit"></button>
                     <a href="{{  route('labour.edit',$data->id)  }}"><i class=" btn btn-primary fa fa-edit"></i></a>
-                    <a href="{{  route('labour.show',$data->id)  }}"><i class="btn btn-primary"><b>i</b></i></a>
+                    <!-- <a href="{{  route('labour.show',$data->id)  }}"><i class="btn btn-primary"><b>i</b></i></a> -->
                     <a class="btn btn-primary" href="{{  route('labour.addAttendence',$data->id)  }}"><i class="fa fa-cutlery">L</i></a>
                     <!-- <a class="btn btn-primary" href="{{  route('labour.billPay',$data->id)  }}"><i class="fab fa-btc"></i></a> -->
                   </form>
@@ -62,7 +62,7 @@
                   @endforeach
                 </td>
 
-                <td>
+                <!-- <td>
                   @foreach($building as $lt)
 
                   @if($lt->id == $data->building_id)
@@ -70,7 +70,7 @@
                   @endif
 
                   @endforeach
-                </td>
+                </td> -->
 
 
               </tr>

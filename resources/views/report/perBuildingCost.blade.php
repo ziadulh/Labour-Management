@@ -1,13 +1,14 @@
 @extends('admin.app')
 
 @section('content')
+
 <section class="content">
   <div class="row">
     <div class="col-12">
 
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">DataTable with all buildings</h3>
+          <h3 class="card-title">DataTable with individual building</h3>
         </div>
 
         <!-- /.card-header -->
@@ -16,48 +17,50 @@
             <thead>
              <tr>
 
-                <td>Data</td>
-                <td>Paid To</td>
-                <td>Paid amount</td>
-             	
-             </tr>
-           </thead>
+              <td>Date</td>
+              <td>Paid To</td>
+              <td>Paid amount</td>
+              <td>হাজিরা সংখ্যা</td>
+            </tr>
+          </thead>
 
-           <tbody>
+          <tbody> 
 
             @foreach($building_cost as $bc)
-              <tr>
-                <td>{{$bc->food_rate_date}}</td>
-                @foreach($labour as $lbr)
-                  @if($lbr->id == $bc->labour_id)
-                    <td>{{$lbr->name}}</td>
-                  @endif
-                @endforeach
-                
-                <td>{{$bc->food_rate_paid}}</td>
-              </tr>
+            <tr>
+              <td>{{$bc->food_rate_date}}</td>
+              @foreach($labour as $lbr)
+              @if($lbr->id == $bc->labour_id)
+              <td>{{$lbr->name}}</td>
+              @endif
+              @endforeach
+
+              <td>{{$bc->food_rate_paid}}</td>
+              <td>{{$bc->attendence_number}}</td>
+            </tr>
             @endforeach
 
             @foreach($sb_log as $sb_log)
-              <tr>
-                <td>{{$sb_log->month}}</td>
-                @foreach($emp as $em)
-                  @if($em->id == $sb_log->employee_id)
-                    <td>{{$em->name}}</td>
-                  @endif
-                @endforeach
-                
-                <td>{{$sb_log->salary}}</td>
-              </tr>
+            <tr>
+              <td>{{$sb_log->month}}</td>
+              @foreach($emp as $em)
+              @if($em->id == $sb_log->employee_id)
+              <td>{{$em->name}}</td>
+              @endif
+              @endforeach
+
+              <td>{{$sb_log->salary}}</td>
+              <td>Full time Employee</td>
+            </tr>
             @endforeach
 
-	           	
 
-           </tbody>
-      </table>
+
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
 </div>
 </section>
 @endsection

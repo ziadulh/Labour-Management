@@ -7,7 +7,7 @@
 
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">DataTable with default features</h3>
+          <h3 class="card-title">DataTable with all groups</h3>
         </div>
         
         <!-- /.card-header -->
@@ -16,37 +16,40 @@
             <thead>
              <tr>
                <th>Building Name</th>
+               <th>Total Amount</th>
                <th>Total Cost</th>
                <th>Total Due</th>
              </tr>
            </thead>
            <tbody>
-            
-            @foreach($group as $key => $gl)
-              <tr>
-                <td><a href="{{route('pergroup.cost',$gl->id)}}">{{$gl->name}}</a></td>
-                @if(isset($log[$key]))
-                  @foreach($total_array as $tgl => $tgl_cost)
 
-                    @if($tgl == $gl->id)
-                      <td>{{$tgl_cost}}</td>
-                      <td>{{$tgl_cost - $log[$key]->total_paid}}</td>
-                    @endif
-                  @endforeach
-                @else
-                  <td>{{0}}</td>
-                  <td>{{0}}</td>
-                @endif
-              </tr>
-              
+            @foreach($group as $key => $gl)
+            <tr>
+              <td><a href="{{route('pergroup.cost',$gl->id)}}">{{$gl->name}}</a></td>
+              @if(isset($log[$key]))
+              @foreach($total_array as $tgl => $tgl_cost)
+
+              @if($tgl == $gl->id)
+              <td>{{$tgl_cost}}</td>
+              <td>{{$log[$key]->total_paid}}</td>
+              <td>{{$tgl_cost - $log[$key]->total_paid}}</td>
+              @endif
+              @endforeach
+              @else
+              <td>{{0}}</td>
+              <td>{{0}}</td>
+              <td>{{0}}</td>
+              @endif
+            </tr>
+
             @endforeach
-          
-          
-        </tbody>
-      </table>
+
+
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
 </div>
 </section>
 @endsection

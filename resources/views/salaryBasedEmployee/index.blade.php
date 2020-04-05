@@ -34,7 +34,7 @@
                     <button class="btn btn-primary alert-danger fas fa-trash-alt" onclick="return confirm('Are you sure?')" type="submit"></button>
                     <a href="{{  route('salarybasedemployee.edit',$data->id)  }}"><i class=" btn btn-primary fa fa-edit"></i></a>
                     <!-- <a href="{{  route('salarybasedemployee.show',$data->id)  }}"><i class="btn btn-primary"><b>i</b></i></a> -->
-                    <a class="btn btn-primary" href="{{  route('salarybasedemployee.addSalary',$data->id)  }}"><i class="fa fa-cutlery">L</i></a>
+                    <a class="btn btn-primary" href="{{  route('salarybasedemployee.addSalary',$data->id)  }}"><i class="fa fa-cutlery">B</i></a>
                   </form>
                 </td>
                 <td>SBE-{{$data->id}}</td>

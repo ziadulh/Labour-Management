@@ -1,13 +1,14 @@
 @extends('admin.app')
 
 @section('content')
+
 <section class="content">
   <div class="row">
     <div class="col-12">
 
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">DataTable with all buildings</h3>
+          <h3 class="card-title">DataTable with individual group</h3>
         </div>
 
         <!-- /.card-header -->
@@ -16,40 +17,41 @@
             <thead>
              <tr>
 
-                <td>Data</td>
-                <td>Paid To</td>
-                <td>Paid amount</td>
-                <td>Building Name</td>
-             	
-             </tr>
-           </thead>
+              <td>Date</td>
+              <td>Paid To</td>
+              <td>Paid amount</td>
+              <td>Building Name</td>
+              <td>হাজিরা সংখ্যা</td>
+            </tr>
+          </thead>
 
-           <tbody>
+          <tbody>
 
             @foreach($group_cost as $gp)
-              <tr>
-                <td>{{$gp->food_rate_date}}</td>
-                
-                @foreach($labour as $lbr)
-                  @if($lbr->id == $gp->labour_id)
-                    <td>{{$lbr->name}}</td>
-                  @endif
-                @endforeach
-                
-                <td>{{$gp->food_rate_paid}}</td>
-                @foreach($building as $bl)
-                  @if($bl->id == $gp->building_id)
-                    <td>{{$bl->name}}</td>
-                  @endif
-                @endforeach
-              </tr>
+            <tr>
+              <td>{{$gp->food_rate_date}}</td>
+
+              @foreach($labour as $lbr)
+              @if($lbr->id == $gp->labour_id)
+              <td>{{$lbr->name}}</td>
+              @endif
+              @endforeach
+
+              <td>{{$gp->food_rate_paid}}</td>
+              @foreach($building as $bl)
+              @if($bl->id == $gp->building_id)
+              <td>{{$bl->name}}</td>
+              @endif
+              @endforeach
+              <td>{{$gp->attendence_number}}</td>
+            </tr>
             @endforeach
 
-           </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
 </div>
 </section>
 @endsection

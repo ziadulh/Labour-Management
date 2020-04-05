@@ -19,7 +19,7 @@ class CreateSalaryBasedLogsTable extends Migration
             $table->integer('salary');
             $table->string('month');
             $table->integer('group_id');
-            $table->integer('building_id');
+            $table->bigInteger('building_id');
             $table->timestamps();
         });
     }
