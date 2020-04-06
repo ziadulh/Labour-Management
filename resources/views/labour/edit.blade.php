@@ -33,10 +33,10 @@
                             <input type="text" class="form-control" id="name" value="{{ $labour->name }}" name="name">
                         </div>
 
-                        <!-- <div class="form-group">
+                        <div class="form-group">
                             <label for="joining_date"><span style="color:red">*</span>Job ID</label>
                             <input type="text" class="form-control" id="id" value="EP-{{ $labour->id }}" name="id" readonly>
-                        </div> -->
+                        </div>
 
 
                     </div>
@@ -156,7 +156,7 @@
     {{method_field('PUT')}}
 
     <div class="card-footer">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
     </div>
 
 </form>
