@@ -19,8 +19,9 @@
 
               <td>Date</td>
               <td>Paid To</td>
-              <td>Paid amount</td>
+              <td>Paid amount/(খোরাকী পেয়েছে)</td>
               <td>হাজিরা সংখ্যা</td>
+              <td>Total খোরাকী পাবে</td>
             </tr>
           </thead>
 
@@ -37,6 +38,7 @@
 
               <td>{{$bc->food_rate_paid}}</td>
               <td>{{$bc->attendence_number}}</td>
+              <td>{{$bc->food_rate_will_get}}</td>
             </tr>
             @endforeach
 
@@ -50,6 +52,7 @@
               @endforeach
 
               <td>{{$sb_log->salary}}</td>
+              <td>Full time Employee</td>
               <td>Full time Employee</td>
             </tr>
             @endforeach

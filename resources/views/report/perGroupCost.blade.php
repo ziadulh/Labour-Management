@@ -19,9 +19,10 @@
 
               <td>Date</td>
               <td>Paid To</td>
-              <td>Paid amount</td>
+              <td>Paid amount(খোরাকী পেয়েছে)</td>
               <td>Building Name</td>
               <td>হাজিরা সংখ্যা</td>
+              <td>Total খোরাকী পাবে</td>
             </tr>
           </thead>
 
@@ -44,6 +45,9 @@
               @endif
               @endforeach
               <td>{{$gp->attendence_number}}</td>
+              <td>{{$gp->food_rate_will_get}}</td>
+
+
             </tr>
             @endforeach
 
