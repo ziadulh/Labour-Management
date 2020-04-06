@@ -18,7 +18,7 @@ class CreateLaboursTable extends Migration
             $table->string('name');
             $table->string('joining_date');
             $table->bigInteger('labour_type');
-            $table->bigInteger('group_id');
+            $table->integer('group_id');
             $table->bigInteger('building_id');
             $table->integer('attendance_rate');
             $table->integer('food_rate')->default(0);

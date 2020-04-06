@@ -147,5 +147,4 @@ class ReportController extends Controller
         dd($total_array);
     }
 
-	}
 }

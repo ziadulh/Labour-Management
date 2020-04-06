@@ -16,7 +16,7 @@ class CreateSalaryBasedEmployeesTable extends Migration
         Schema::create('salary__based__employees', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('group_id');
+            $table->integer('group_id');
             $table->bigInteger('building_id');
             $table->integer('salary');
             $table->tinyInteger('status');
