@@ -56,10 +56,13 @@ class ReportController extends Controller
                ->orderBy('building_id', 'asc')
                ->get();
 
+               
+
         $total_array = [];
 
         foreach ($log as $key => $lg) {
             $total_cost = 0;
+
             $bld = Salary_log::where('building_id',$lg->building_id)->get();
             foreach ($bld as $k => $val) {
                 $data = Labour::find($val->labour_id);
@@ -70,13 +73,13 @@ class ReportController extends Controller
             
         }
 
-
+        $sl_arr = [];
 
         $s_log = Salary_Based_log::groupBy('building_id')
                ->selectRaw('sum(salary) as salary, building_id')
                ->orderBy('building_id', 'asc')
                ->get();
-        
+
         foreach($s_log as $sl){
             $sl_arr[$sl->building_id] = $sl->salary;
         }
@@ -129,5 +132,31 @@ class ReportController extends Controller
         $building = Building::get();
         return view('report.perGroupCost',compact(['group_cost','labour','building']));
 
+    }
+
+    public function costSelected(){
+        $log = Salary_log::groupBy('building_id')
+               ->selectRaw('sum(food_rate_will_get) as total_food, sum(food_rate_paid) as total_paid, building_id')
+               ->orderBy('building_id', 'asc')
+               ->get();
+
+               
+
+        $total_array = [];
+
+        foreach ($log as $key => $lg) {
+            $total_cost = 0;
+
+            $bld = Salary_log::where('building_id',$lg->building_id)->get();
+            foreach ($bld as $k => $val) {
+                $data = Labour::find($val->labour_id);
+                $total_cost = $total_cost + $data->attendance_rate * $val->attendence_number;
+                
+            }
+            $total_array[$lg->building_id] = $total_cost;
+            
+        }
+
+        dd($total_array);
     }
 }

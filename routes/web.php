@@ -37,6 +37,8 @@ Route::resource('/salarybasedemployee','SalaryBasedEmployeeController');
 Route::get('/perbuildingcost/{id}','ReportController@perbuildingcost')->name('perbuilding.cost');
 Route::get('/pergroupcost/{id}','ReportController@pergroupcost')->name('pergroup.cost');
 
+Route::get('/costSelected','ReportController@costSelected')->name('cost.selected');
+
 Route::get('/addSalary/{id}','SalaryBasedEmployeeController@addSalary')->name('salarybasedemployee.addSalary');
 Route::post('/addSalaryStore/{id}','SalaryBasedEmployeeController@addSalaryStore')->name('salarybasedemployee.addSalaryStore');
 
