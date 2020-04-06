@@ -15,7 +15,7 @@ class CreateSalaryBasedLogsTable extends Migration
     {
         Schema::create('salary__based_logs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('employee_id');
+            $table->integer('employee_id');
             $table->integer('salary');
             $table->string('month');
             $table->integer('group_id');

@@ -16,13 +16,13 @@ class CreateSalaryLogsTable extends Migration
         Schema::create('salary_logs', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('labour_id');
+            $table->integer('group_id');
+            $table->integer('building_id');
             $table->string('food_rate_date');
+            
             $table->decimal('attendence_number', 8, 2)->default(0);
-            $table->integer('food_rate_will_get');
+            $table->integer('food_rate_will_get')->default(0);
             $table->integer('food_rate_paid')->default(0);
-            $table->bigInteger('group_id');
-            $table->bigInteger('building_id');
-
             $table->timestamps();
         });
     }

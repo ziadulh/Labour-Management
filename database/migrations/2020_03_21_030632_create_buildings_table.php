@@ -16,8 +16,8 @@ class CreateBuildingsTable extends Migration
         Schema::create('buildings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('group_id');
-            $table->string('status');
+            $table->integer('group_id');
+            $table->tinyInteger('status');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();

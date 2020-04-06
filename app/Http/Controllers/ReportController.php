@@ -56,7 +56,11 @@ class ReportController extends Controller
                ->orderBy('building_id', 'asc')
                ->get();
 
-               
+        $total_paid = [];
+
+        foreach ($log as $k => $log_paid) {
+            $total_paid[$log_paid->building_id] = $log_paid->total_paid;
+        }
 
         $total_array = [];
 
@@ -73,6 +77,8 @@ class ReportController extends Controller
             
         }
 
+        /*dump($total_array);*/
+
         $sl_arr = [];
 
         $s_log = Salary_Based_log::groupBy('building_id')
@@ -84,9 +90,11 @@ class ReportController extends Controller
             $sl_arr[$sl->building_id] = $sl->salary;
         }
 
+        /*dump($sl_arr);exit;*/
 
 
-    	return view('report.buildingCost',compact(['log','building','total_array','sl_arr']));
+
+    	return view('report.buildingCost',compact(['log','building','total_array','sl_arr','total_paid']));
     }
 
     public function groupCostReport(){

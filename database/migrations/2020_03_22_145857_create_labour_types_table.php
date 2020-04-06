@@ -16,7 +16,7 @@ class CreateLabourTypesTable extends Migration
         Schema::create('labour_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('status');
+            $table->tinyInteger('status');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();

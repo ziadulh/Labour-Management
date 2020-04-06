@@ -24,40 +24,15 @@
            <tbody>
 
             @foreach($building as $key => $bl)
+            
               <tr>
                 <td><a href="{{route('perbuilding.cost',$bl->id)}}">{{$bl->name}}</a></td>
-                @if(isset($log[$key]) && $bl->id == $log[$key]->building_id)
-                  @foreach($total_array as $tbl => $tbl_cost)
-                    @if($tbl == $bl->id)
-                      <td>{{$tbl_cost + (isset($sl_arr[$bl->id]) ? $sl_arr[$bl->id] : 0)}}</td>
-                      <td>{{$log[$key]->total_paid}} + {{(isset($sl_arr[$bl->id]) ? $sl_arr[$bl->id] : 0)}}(salary paid)</td>
-                      <td>{{$tbl_cost - $log[$key]->total_paid}}</td>
-                    @endif
-                  @endforeach
-                @else
-                  <td>{{0}}</td>
-                  <td>{{0}}</td>
-                  <td>{{0}}</td>
-                @endif
+                <td>{{ (isset($total_array[$bl->id]) ? $total_array[$bl->id] : 0) + (isset($sl_arr[$bl->id]) ? $sl_arr[$bl->id] : 0)}}</td>
+                <td>{{ isset($total_paid[$bl->id]) ? $total_paid[$bl->id] : 0}} + {{(isset($sl_arr[$bl->id]) ? $sl_arr[$bl->id] : 0)}}(employee based total salary paid)</td>
+                <td>{{ (isset($total_array[$bl->id]) ? $total_array[$bl->id] : 0)  - (isset($total_paid[$bl->id]) ? $total_paid[$bl->id] : 0)}}</td>
               </tr>
               
             @endforeach
-
-
-
-            <!-- @foreach($log as $log)
-              <tr>
-                @foreach($building as $bl)
-                  @if($bl->id == $log->building_id)
-                    <td><a href="{{route('perbuilding.cost',$log->building_id)}}">{{$bl->name}}</a></td>
-                  @endif
-                @endforeach
-                  <td>{{$log->total_food}}</td>
-                  <td>{{$log->total_food - $log->total_paid}}</td>
-              </tr>
-            @endforeach -->
-  
-
            </tbody>
       </table>
     </div>
