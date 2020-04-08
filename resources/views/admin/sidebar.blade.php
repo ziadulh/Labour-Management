@@ -170,9 +170,9 @@
           </li>
 
 
-          <li class="nav-item has-treeview {{((Route::currentRouteName()) == ('groupCost.report')) || ((Route::currentRouteName()) == ('labour.find')) || ((Route::currentRouteName()) == ('buildingCost.report'))? 'menu-open' : ''}}">
+          <li class="nav-item has-treeview {{((Route::currentRouteName()) == ('groupCost.report')) || ((Route::currentRouteName()) == ('labour.find')) || ((Route::currentRouteName()) == ('buildingCost.report')) || ((Route::currentRouteName()) == ('cost.employeeBasedReport'))? 'menu-open' : ''}}">
 
-            <a href="#" class="nav-link {{((Route::currentRouteName()) == ('groupCost.report')) || ((Route::currentRouteName()) == ('labour.find')) || ((Route::currentRouteName()) == ('buildingCost.report')) ? 'active' : ''}}">
+            <a href="#" class="nav-link {{((Route::currentRouteName()) == ('groupCost.report')) || ((Route::currentRouteName()) == ('labour.find')) || ((Route::currentRouteName()) == ('buildingCost.report')) || ((Route::currentRouteName()) == ('cost.employeeBasedReport')) ? 'active' : ''}}">
               <i class="nav-icon fa fa-file"></i>
               <p>
                 Reports
@@ -199,6 +199,13 @@
                 <a href="{{  route('groupCost.report')  }}" class="nav-link {{((Route::currentRouteName()) == ('groupCost.report')) ? 'active' : ''}}">
                   <i class="fa fa-list nav-icon"></i>
                   <p>Group Wise Report</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{  route('cost.employeeBasedReport')  }}" class="nav-link {{((Route::currentRouteName()) == ('cost.employeeBasedReport')) ? 'active' : ''}}">
+                  <i class="fa fa-list nav-icon"></i>
+                  <p>Employee Wise Report</p>
                 </a>
               </li>
 

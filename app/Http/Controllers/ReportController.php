@@ -11,6 +11,7 @@ use App\Salary_log;
 use App\Salary_Based_log;
 use App\Salary_Based_Employee;
 use Illuminate\Support\Facades\DB;
+use App\User;
 
 class ReportController extends Controller
 {
@@ -121,30 +122,99 @@ class ReportController extends Controller
 
     }
 
-    public function costSelected(){
-        $log = Salary_log::groupBy('building_id')
-               ->selectRaw('sum(food_rate_will_get) as total_food, sum(food_rate_paid) as total_paid, building_id')
-               ->orderBy('building_id', 'asc')
-               ->get();
+    public function employeeBasedReport(Request $request){
 
-               
+    	/*$data = DB::select('SELECT salary_logs.food_rate_date FROM salary_logs WHERE salary_logs.food_rate_date = "2020-04-07"'); dd($data);*/
+    	$from= $request->input('from');
+    	$to = $request->input('to');
 
-        $total_array = [];
+/*join salary_log table (where data is between from date to to data) with labour with labour table and make group with labour id*/
 
-        foreach ($log as $key => $lg) {
-            $total_cost = 0;
+    	$employee_based_log = DB::table('salary_logs')
+    		->whereDate('salary_logs.food_rate_date','>=', ($request->input('from')?$request->input('from'):'1920-01-01'))
+    		->whereDate('salary_logs.food_rate_date','<=', ($request->input('to')?$request->input('to'):'3020-01-01'))
+            ->join('labours', 'labours.id', '=', 'salary_logs.labour_id')
+            ->selectRaw('salary_logs.labour_id as id, sum(salary_logs.attendence_number) as total_attendence, sum(salary_logs.food_rate_will_get) as total_food_get, sum(salary_logs.attendence_number * labours.attendance_rate) as total_amount, sum(salary_logs.food_rate_paid) as total_paid, labours.name as name')
+            ->groupBy('labours.id','salary_logs.labour_id')
+            ->orderBy('labours.id', 'asc')
+            ->get();
 
-            $bld = Salary_log::where('building_id',$lg->building_id)->get();
-            foreach ($bld as $k => $val) {
-                $data = Labour::find($val->labour_id);
-                $total_cost = $total_cost + $data->attendance_rate * $val->attendence_number;
+            /*dd($data);
+
+    		$employee_based_log = DB::select('SELECT salary_logs.labour_id, SUM(salary_logs.attendence_number) as total_attendence, SUM(salary_logs.food_rate_will_get) as total_food_get, SUM(salary_logs.attendence_number * labours.attendance_rate) as total_amount,  SUM(salary_logs.food_rate_paid) as total_paid, labours.name as name FROM salary_logs LEFT JOIN labours 
+			ON labours.id = salary_logs.labour_id
+			GROUP BY salary_logs.labour_id, labours.id ORDER BY salary_logs.labour_id ASC'
+			); */    
+
+		return view('report.labourBasedReport',compact(['employee_based_log','from','to']));
+    }
+
+
+    public function downloadXL(Request $request) 
+    {
+        $headers = [
+            'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0',
+            'Content-type'        => 'text/csv',
+            'Content-Disposition' => 'attachment; filename=pages.csv',
+            'Expires'             => '0',
+            'Pragma'              => 'public'
+        ];
+
+ 
+
+        $from= $request->input('from');
+    	$to = $request->input('to');
+
+/*join salary_log table (where data is between from date to to data) with labour with labour table and make group with labour id*/
+
+    	$employee_based_log = DB::table('salary_logs')
+    		->whereDate('salary_logs.food_rate_date','>=', ($request->input('from')?$request->input('from'):'1920-01-01'))
+    		->whereDate('salary_logs.food_rate_date','<=', ($request->input('to')?$request->input('to'):'3020-01-01'))
+            ->join('labours', 'labours.id', '=', 'salary_logs.labour_id')
+            ->selectRaw('salary_logs.labour_id as id, sum(salary_logs.attendence_number) as total_attendence, sum(salary_logs.food_rate_will_get) as total_food_get, sum(salary_logs.attendence_number * labours.attendance_rate) as total_amount, sum(salary_logs.food_rate_paid) as total_paid, labours.name as name')
+            ->groupBy('labours.id','salary_logs.labour_id')
+            ->orderBy('labours.id', 'asc')
+            ->get()->toArray();
+
+
+            $arr = [];
+
+        foreach ($employee_based_log as $key => $value) {
+        	$a = array(
+        		"id" => $value->id,
+        		"name" => $value->name,
+        		"total_attendence" => $value->total_attendence,
+        		"total_amount" => $value->total_amount,
+        		"total_paid" => $value->total_paid,
+        		"total_due" => $value->total_amount - $value->total_paid
+        	);
+        	array_push($arr, $a);
+        }
+ 
+		
+        # add headers for each column in the CSV download
+        array_unshift($arr, array_keys($arr[0]));
+
+ 
+
+        $callback = function() use ($arr) 
+        {
+            $FH = fopen('php://output', 'w');
+            fputcsv($FH, array("ID","Name","হাজিরা সংখ্যা","Total Amount","Total Paid","Due Salary"));
+            foreach ($arr as $key => $row) { 
+                if($key>0){
+                    fputcsv($FH, $row);
+                }
                 
             }
-            $total_array[$lg->building_id] = $total_cost;
-            
-        }
 
-        dd($total_array);
+            fclose($FH);
+
+        };
+
+ 
+
+        return Response()->stream($callback, 200, $headers);
     }
 
 }
