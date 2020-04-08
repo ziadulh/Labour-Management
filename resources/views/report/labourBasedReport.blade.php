@@ -47,11 +47,6 @@
                 
               </tr>
             @endforeach
-
-          
-
-           
-
           </tbody>
 
         </table>
