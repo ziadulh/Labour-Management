@@ -124,13 +124,18 @@ class ReportController extends Controller
 
     public function employeeBasedReport(Request $request){
 
+    	$group = Group::get();
+
     	/*$data = DB::select('SELECT salary_logs.food_rate_date FROM salary_logs WHERE salary_logs.food_rate_date = "2020-04-07"'); dd($data);*/
     	$from= $request->input('from');
     	$to = $request->input('to');
+    	$gp_trac = ($request->input('group'));
 
 /*join salary_log table (where data is between from date to to data) with labour with labour table and make group with labour id*/
 
-    	$employee_based_log = DB::table('salary_logs')
+if($gp_trac){
+	$employee_based_log = DB::table('salary_logs')
+    		->where('salary_logs.group_id','=',$gp_trac)
     		->whereDate('salary_logs.food_rate_date','>=', ($request->input('from')?$request->input('from'):'1920-01-01'))
     		->whereDate('salary_logs.food_rate_date','<=', ($request->input('to')?$request->input('to'):'3020-01-01'))
             ->join('labours', 'labours.id', '=', 'salary_logs.labour_id')
@@ -138,6 +143,20 @@ class ReportController extends Controller
             ->groupBy('labours.id','salary_logs.labour_id')
             ->orderBy('labours.id', 'asc')
             ->get();
+}
+
+else{
+	$employee_based_log = DB::table('salary_logs')
+    		->whereDate('salary_logs.food_rate_date','>=', ($request->input('from')?$request->input('from'):'1920-01-01'))
+    		->whereDate('salary_logs.food_rate_date','<=', ($request->input('to')?$request->input('to'):'3020-01-01'))
+            ->join('labours', 'labours.id', '=', 'salary_logs.labour_id')
+            ->selectRaw('salary_logs.labour_id as id, sum(salary_logs.attendence_number) as total_attendence, sum(salary_logs.food_rate_will_get) as total_food_get, sum(salary_logs.attendence_number * labours.attendance_rate) as total_amount, sum(salary_logs.food_rate_paid) as total_paid, labours.name as name')
+            ->groupBy('labours.id','salary_logs.labour_id')
+            ->orderBy('labours.id', 'asc')
+            ->get();
+}
+
+    	
 
             /*dd($data);
 
@@ -146,12 +165,13 @@ class ReportController extends Controller
 			GROUP BY salary_logs.labour_id, labours.id ORDER BY salary_logs.labour_id ASC'
 			); */    
 
-		return view('report.labourBasedReport',compact(['employee_based_log','from','to']));
+		return view('report.labourBasedReport',compact(['employee_based_log','from','to','group','gp_trac']));
     }
 
 
     public function downloadXL(Request $request) 
     {
+
         $headers = [
             'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0',
             'Content-type'        => 'text/csv',
@@ -181,12 +201,14 @@ class ReportController extends Controller
 
         foreach ($employee_based_log as $key => $value) {
         	$a = array(
-        		"id" => $value->id,
+        		"id" => 'EP-'.$value->id,
         		"name" => $value->name,
         		"total_attendence" => $value->total_attendence,
         		"total_amount" => $value->total_amount,
+        		"total_food_get" => $value->total_food_get,
         		"total_paid" => $value->total_paid,
-        		"total_due" => $value->total_amount - $value->total_paid
+        		"total_due" => $value->total_amount - $value->total_paid,
+        		"due_food" => $value->total_food_get - $value->total_paid
         	);
         	array_push($arr, $a);
         }
@@ -200,7 +222,7 @@ class ReportController extends Controller
         $callback = function() use ($arr) 
         {
             $FH = fopen('php://output', 'w');
-            fputcsv($FH, array("ID","Name","হাজিরা সংখ্যা","Total Amount","Total Paid","Due Salary"));
+            fputcsv($FH, array("Labour ID","Name","Total হাজিরা সংখ্যা","Total Amount","Total Paid","Total খোরাকী পাবে","Due Salary","Due খোরাকী"));
             foreach ($arr as $key => $row) { 
                 if($key>0){
                     fputcsv($FH, $row);

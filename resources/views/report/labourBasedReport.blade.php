@@ -12,7 +12,13 @@
         </div>
 
         <form action="{{route('cost.employeeBasedReport')}}" method="GET">
-          From : <input type="date" name="from" value="{{$from}}"> To : <input type="date" name="to" value="{{$to}}"> 
+         From : <input type="date" name="from" value="{{$from}}"> To : <input type="date" name="to" value="{{$to}}">
+          <select name="group">
+            @foreach($group as $gp)
+              <option {{$gp->id == $gp_trac? ' selected':''}}value="{{$gp->id}}">{{$gp->name}}</option>
+            @endforeach
+            
+          </select> 
 
           <button type="submit">Go</button>
         </form>
@@ -27,6 +33,7 @@
               <td>Total Amount</td>
               <td>Total খোরাকী পাবে</td>
               <td>Paid amount(খোরাকী পেয়েছে)</td>
+              <td>Due খোরাকী</td>
               <td>হাজিরা সংখ্যা</td>
               <td>Due Salary</td>
               
@@ -42,6 +49,7 @@
                 <td>{{$lbl->total_amount}}</td>
                 <td>{{$lbl->total_food_get}}</td>
                 <td>{{$lbl->total_paid}}</td>
+                <td>{{$lbl->total_food_get - $lbl->total_paid}}</td>
                 <td>{{$lbl->total_attendence}}</td>
                 <td>{{$lbl->total_amount - $lbl->total_paid}}</td>
                 
