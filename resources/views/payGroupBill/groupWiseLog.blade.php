@@ -15,37 +15,26 @@
           <table id="example1" class="table table-bordered table-striped">
             <thead>
              <tr>
-               <th>Building Name</th>
+               <th>Group Name</th>
                <th>Total Amount</th>
-               <th>Total Cost</th>
+               <th>Total Paid</th>
                <th>Total Due</th>
-               <th>Action</th>
+               <th>Status</th>
              </tr>
            </thead>
            <tbody>
 
-            @foreach($group as $key => $gl)
-            <tr>
-              <td><a href="{{route('pergroup.cost',$gl->id)}}">{{$gl->name}}</a></td>
-              @if(isset($log[$key]))
-              @foreach($total_array as $tgl => $tgl_cost)
+            @foreach($data as $dt)
+              <tr>
 
-              @if($tgl == $gl->id)
-              <td>{{$tgl_cost}}</td>
-              <td>{{$log[$key]->total_paid}}</td>
-              <td>{{$tgl_cost - $log[$key]->total_paid}}</td>
-              <td><a href="{{route('group.payBillView',$gl->id)}}" class="btn btn-primary">Pay Bill</a> <a href="{{route('group.viewGroupLog')}}" class="btn btn-primary">View Group Logs</a></td>
-              
-              @endif
-              @endforeach
-              @else
-              <td>{{0}}</td>
-              <td>{{0}}</td>
-              <td>{{0}}</td>
-              <td><a href="{{route('group.payBillView',$gl->id)}}" class="btn btn-primary">Pay Bill</a> <a href="{{route('group.viewGroupLog')}}" class="btn btn-primary">View Group Logs</a></td>
-              @endif
-            </tr>
+                <td><a href="{{route('group.payGroupLogView',$dt->id)}}">{{$dt->name}}</a></td>
+                <td>{{$dt->total_amount}}</td>
+                <td>{{$dt->total_paid}}</td>
+                <td>{{$dt->total_amount - $dt->total_paid}}</td>
+                <td>{{($dt->total_amount - $dt->total_paid) == 0?'paid':'Not paid'}}</td>
 
+                
+              </tr>
             @endforeach
 
 

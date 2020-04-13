@@ -78,7 +78,7 @@ class ReportController extends Controller
 
 	public function groupCostReport(){
     	// $labour = Labour::get()->groupBy('group_id');
-		$group = Group::get();
+		/*$group = Group::get();
 
 		$log = Salary_log::groupBy('group_id')
 		->selectRaw('sum(food_rate_will_get) as total_food, sum(food_rate_paid) as total_paid, group_id')
@@ -98,7 +98,21 @@ class ReportController extends Controller
 			$total_array[$lg->group_id] = $total_cost;
 
 
-		}
+		}*/
+
+
+
+		$group = DB::table('salary_logs')
+			->selectRaw('SUM(salary_logs.attendence_number) as total, labours.attendance_rate as ar, salary_logs.group_id as gid')
+    		->leftJoin('labours','salary_logs.labour_id','=','labours.id')
+    		->groupBy('salary_logs.group_id','labours.attendance_rate')
+            // ->join('labours', 'labours.id', '=', 'salary_logs.labour_id')
+            // ->selectRaw('salary_logs.labour_id as id, sum(salary_logs.attendence_number) as total_attendence, sum(salary_logs.food_rate_will_get) as total_food_get, sum(salary_logs.attendence_number * labours.attendance_rate) as total_amount, sum(salary_logs.food_rate_paid) as total_paid, labours.name as name')
+            // ->groupBy('labours.id','salary_logs.labour_id')
+            // ->orderBy('labours.id', 'asc')
+            ->get();
+
+            dd($group);
 
 
 		return view('report.groupCost',compact(['group','total_array','log']));

@@ -55,3 +55,12 @@ Route::post('billPaymentStore/{id}','LabourController@billPaymentStore')->name('
     
 //ajax call route
 Route::get('findBuilding/','LabourController@findBuilding')->name('findBuilding');
+
+
+//pay groupwise bill route
+Route::get('payGroupBillView/{id}','PayGroupBill@payBillView')->name('group.payBillView');
+Route::post('payGroupBill/{id}','PayGroupBill@payBill')->name('group.payBill');
+Route::get('viewGroupLog','PayGroupBill@viewGroupLog')->name('group.viewGroupLog');
+/*Route::get('payGroupLogView/{id}','PayGroupBill@payGroupLogView')->name('group.payGroupLogView');
+Route::post('payGroupBillToLog/{id}','PayGroupBill@payGroupBillToLog')->name('group.payGroupBillToLog');*/
+Route::get('groupTransectionHistory','PayGroupBill@groupTransectionHistory')->name('group.TransectionHistory');
