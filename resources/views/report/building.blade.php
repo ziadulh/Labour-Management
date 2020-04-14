@@ -12,7 +12,7 @@
 
 
 
-        <form role="form" action="/api/buidingWiseReport" method="GET">
+        <form role="form" action="{{route('labour.find')}}" method="GET">
           @csrf
           <div class="card-body">
 

@@ -15,7 +15,7 @@
             <h3 class="card-title">Labour Entry Form</h3>
         </div>
 
-        <form role="form" action="{{route('labour.store')}}" method="POST">
+        <form role="form" class="prevent-multiple-submit" action="{{route('labour.store')}}" method="POST">
             @csrf
             <div class="card-body">
                
@@ -78,7 +78,7 @@
 </div>
 
 <div class="card-footer">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary disable-submit-button">Submit</button>
 </div>
 
 </form>
@@ -114,6 +114,11 @@
             else{
                 $('select[name="building_id"]').empty();
             }
+        });
+
+
+      $('.prevent-multiple-submit').on('submit', function(){
+            $('.disable-submit-button').attr('disabled','true');
         });
 
 

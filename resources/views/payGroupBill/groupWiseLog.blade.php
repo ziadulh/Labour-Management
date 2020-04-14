@@ -15,27 +15,26 @@
           <table id="example1" class="table table-bordered table-striped">
             <thead>
              <tr>
-               <th>Building Name</th>
+               <th>Group Name</th>
                <th>Total Amount</th>
-               <th>Total Cost</th>
+               <th>Total Paid</th>
                <th>Total Due</th>
-               <th>Action</th>
+               <th>Status</th>
              </tr>
            </thead>
            <tbody>
 
-            @foreach($group as $key => $gl)
-            <tr>
+            @foreach($data as $dt)
+              <tr>
 
-              <td><a href="{{route('pergroup.cost',$gl->groupid)}}">{{$gl->groupname}}</a></td>
-              <td>{{$gl->total_amount}}</td>
-              <td>{{$gl->total_paid}}</td>
-              <td>{{$gl->total_amount - $gl->total_paid}}</td>
-              <td><a href="{{route('group.payBillView',$gl->groupid)}}" class="btn btn-primary">Pay Bill</a> </td>
-              
-              
-            </tr>
+                <td><a href="{{route('group.payGroupLogView',$dt->id)}}">{{$dt->name}}</a></td>
+                <td>{{$dt->total_amount}}</td>
+                <td>{{$dt->total_paid}}</td>
+                <td>{{$dt->total_amount - $dt->total_paid}}</td>
+                <td>{{($dt->total_amount - $dt->total_paid) == 0?'paid':'Not paid'}}</td>
 
+                
+              </tr>
             @endforeach
 
 

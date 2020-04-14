@@ -37,6 +37,10 @@ Route::resource('/salarybasedemployee','SalaryBasedEmployeeController');
 Route::get('/perbuildingcost/{id}','ReportController@perbuildingcost')->name('perbuilding.cost');
 Route::get('/pergroupcost/{id}','ReportController@pergroupcost')->name('pergroup.cost');
 
+Route::get('/employeeBasedReport','ReportController@employeeBasedReport')->name('cost.employeeBasedReport');
+
+Route::get('/downloadXL','ReportController@downloadXL')->name('downloadXL');
+
 Route::get('/addSalary/{id}','SalaryBasedEmployeeController@addSalary')->name('salarybasedemployee.addSalary');
 Route::post('/addSalaryStore/{id}','SalaryBasedEmployeeController@addSalaryStore')->name('salarybasedemployee.addSalaryStore');
 
@@ -51,3 +55,15 @@ Route::post('billPaymentStore/{id}','LabourController@billPaymentStore')->name('
     
 //ajax call route
 Route::get('findBuilding/','LabourController@findBuilding')->name('findBuilding');
+
+
+//pay groupwise bill route
+Route::get('payGroupBillView/{id}','PayGroupBill@payBillView')->name('group.payBillView');
+Route::post('payGroupBill/{id}','PayGroupBill@payBill')->name('group.payBill');
+Route::get('viewGroupLog','PayGroupBill@viewGroupLog')->name('group.viewGroupLog');
+/*Route::get('payGroupLogView/{id}','PayGroupBill@payGroupLogView')->name('group.payGroupLogView');
+Route::post('payGroupBillToLog/{id}','PayGroupBill@payGroupBillToLog')->name('group.payGroupBillToLog');*/
+Route::get('groupTransectionHistory','PayGroupBill@groupTransectionHistory')->name('group.TransectionHistory');
+Route::get('partialGroupBillPay/{id}','PayGroupBill@partialGroupBillPay')->name('group.partialBillPay');
+Route::put('partialGroupBillPayStore/{id}','PayGroupBill@partialGroupBillPayStore')->name('group.partialBillPayStore');
+Route::get('groupTransectionHistoryDelete/{id}','PayGroupBill@groupTransectionHistoryDelete')->name('group.TransectionHistoryDelete');

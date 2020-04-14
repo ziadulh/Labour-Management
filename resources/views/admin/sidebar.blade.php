@@ -170,9 +170,9 @@
           </li>
 
 
-          <li class="nav-item has-treeview {{((Route::currentRouteName()) == ('groupCost.report')) || ((Route::currentRouteName()) == ('labour.find')) || ((Route::currentRouteName()) == ('buildingCost.report'))? 'menu-open' : ''}}">
+          <li class="nav-item has-treeview {{((Route::currentRouteName()) == ('groupCost.report')) || ((Route::currentRouteName()) == ('labour.find')) || ((Route::currentRouteName()) == ('buildingCost.report')) || ((Route::currentRouteName()) == ('cost.employeeBasedReport'))? 'menu-open' : ''}}">
 
-            <a href="#" class="nav-link {{((Route::currentRouteName()) == ('groupCost.report')) || ((Route::currentRouteName()) == ('labour.find')) || ((Route::currentRouteName()) == ('buildingCost.report')) ? 'active' : ''}}">
+            <a href="#" class="nav-link {{((Route::currentRouteName()) == ('groupCost.report')) || ((Route::currentRouteName()) == ('labour.find')) || ((Route::currentRouteName()) == ('buildingCost.report')) || ((Route::currentRouteName()) == ('cost.employeeBasedReport')) ? 'active' : ''}}">
               <i class="nav-icon fa fa-file"></i>
               <p>
                 Reports
@@ -202,8 +202,43 @@
                 </a>
               </li>
 
+              <li class="nav-item">
+                <a href="{{  route('cost.employeeBasedReport')  }}" class="nav-link {{((Route::currentRouteName()) == ('cost.employeeBasedReport')) ? 'active' : ''}}">
+                  <i class="fa fa-list nav-icon"></i>
+                  <p>Employee Wise Report</p>
+                </a>
+              </li>
+
             </ul>
           </li>
+
+
+
+          <li class="nav-item has-treeview {{((Route::currentRouteName()) == ('group.TransectionHistory')) ? 'menu-open' : ''}}">
+
+            <a href="#" class="nav-link {{((Route::currentRouteName()) == ('group.TransectionHistory')) ? 'active' : ''}}">
+              <i class="nav-icon fa fa-file"></i>
+              <p>
+                Transection History
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+
+              <li class="nav-item">
+                <a href="{{route('group.TransectionHistory')}}" class="nav-link {{((Route::currentRouteName()) == ('group.TransectionHistory')) ? 'active' : ''}}">
+                  <i class="fa fa-search nav-icon"></i>
+                  <p>Group Transection History</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+
+
+
+
 
           <li >
 

@@ -18,6 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 	return $request->user();
 });
 
-Route::get('/buidingWiseReport','ReportController@building')->name('labour.find');
+/*Route::get('/buidingWiseReport','ReportController@building')->name('labour.find');
 Route::get('/buidingWiseCostReport','ReportController@buildingCostReport')->name('buildingCost.report');
-Route::get('/groupWiseCostReport','ReportController@groupCostReport')->name('groupCost.report');
+Route::get('/groupWiseCostReport','ReportController@groupCostReport')->name('groupCost.report');*/

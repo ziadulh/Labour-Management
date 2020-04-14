@@ -12,25 +12,18 @@
         <div class="card card-primary">
 
             <div class="card-header">
-                <h3 class="card-title">Update Category</h3>
+                <h3 class="card-title">Pay bill</h3>
             </div>
 
-            <form role="form" class="prevent-multiple-submit" action="{{route('labourType.update',$data->id)}}" method="POST">
+            <form role="form" class="prevent-multiple-submit" action="{{route('group.partialBillPayStore',$id)}}" method="POST">
             @csrf
                 <div class="card-body">
+                	
                     <div class="form-group">
-                        <label for="name"><span style="color:red">*</span>Category Name</label>
-                        <input type="text" class="form-control" id="name" value="{{ $data->name }}" name="name">
+                        <label for="amount"><span style="color:red">*</span>Enter amount</label>
+                        <input type="text" class="form-control" id="amount" value="{{  old('amount')  }}" name="amount">
                     </div>
-
-                    <div class="form-group">
-                        <label><span style="color:red">*</span>Status</label>
-                        <select class="form-control " style="width: 100%;" name="status">
-                            <option {{ ($data->status == 1) ? 'selected' : '' }} value="1" >Yes</option>
-                            <option {{ ($data->status == 0) ? 'selected' : '' }} value="0">No</option>
-                        </select>
                     
-                    </div>
                 </div>
 
                 {{method_field('PUT')}}

@@ -28,9 +28,9 @@
             <tr>
               <td><a href="{{route('perbuilding.cost',$build->id)}}">{{$build->buildname}}</a></td>
               
-              <td>{{$build->rate * $build->total_hazira +$build->total_salary}}</td>
+              <td>{{$build->paid_amount +$build->total_salary}}</td>
               <td>{{$build->total_cost}} + {{$build->total_salary_cost}} {{ $build->total_salary_cost !=null ? '[Salary Cost]' : '0[Salary Cost]'}} = {{$build->total_cost+$build->total_salary_cost}}</td>
-              <td>{{($build->rate * $build->total_hazira)+($build->total_salary)-($build->total_cost+$build->total_salary_cost)}}</td>
+              <td>{{($build->paid_amount)+($build->total_salary)-($build->total_cost+$build->total_salary_cost)}}</td>
             </tr>
 
             @endforeach 

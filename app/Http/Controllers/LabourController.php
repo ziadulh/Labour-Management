@@ -172,10 +172,8 @@ class LabourController extends Controller
     public function addAttendenceStore(Request $request, $id)
     {
 
-        
-
         $request->validate([
-            'attendence' => 'required',
+            'attendence' => 'required', 'food_rate_date' => 'required | integer', 'food_rate_will_get ' => 'required | integer'
         ]);
 
         $data = Labour::find($id);

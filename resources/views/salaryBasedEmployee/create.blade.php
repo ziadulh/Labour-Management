@@ -15,7 +15,7 @@
             <h3 class="card-title">Labour Type Create Form</h3>
         </div>
 
-        <form role="form" action="{{route('salarybasedemployee.store')}}" method="POST">
+        <form role="form" class="prevent-multiple-submit" action="{{route('salarybasedemployee.store')}}" method="POST">
             @csrf
             <div class="card-body">
                
@@ -50,7 +50,7 @@
             </div>
 
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary disable-submit-button">Submit</button>
             </div>
 
         </form>
@@ -58,4 +58,14 @@
     
 </div>
 
+@endsection
+
+@section('js')
+  <script>
+    $(document).ready(function () {
+        $('.prevent-multiple-submit').on('submit', function(){
+            $('.disable-submit-button').attr('disabled','true');
+        });
+    });
+</script>
 @endsection
