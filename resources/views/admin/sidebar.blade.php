@@ -214,9 +214,9 @@
 
 
 
-          <li class="nav-item has-treeview {{((Route::currentRouteName()) == ('groupCost.report')) ? 'menu-open' : ''}}">
+          <li class="nav-item has-treeview {{((Route::currentRouteName()) == ('group.TransectionHistory')) ? 'menu-open' : ''}}">
 
-            <a href="#" class="nav-link {{((Route::currentRouteName()) == ('groupCost.report')) ? 'active' : ''}}">
+            <a href="#" class="nav-link {{((Route::currentRouteName()) == ('group.TransectionHistory')) ? 'active' : ''}}">
               <i class="nav-icon fa fa-file"></i>
               <p>
                 Transection History

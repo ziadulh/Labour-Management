@@ -22,6 +22,8 @@ class PayGroupBill extends Controller
      public function payBill(Request $request, $id)
      {
 
+        $request->validate(['pay_amount' => 'required | integer', 'payment_date' => 'required' , 'description' => 'required']);
+
         $group_based_log = DB::table('salary_logs')
     		->where('salary_logs.group_id','=',$id)
             ->join('labours', 'labours.id', '=', 'salary_logs.labour_id')
@@ -43,7 +45,7 @@ class PayGroupBill extends Controller
             $group_log_data['payment_date'] = $request->input('payment_date');
             $group_log_data['description'] = $request->input('description');
             $group_log_data['total_amount'] = $t_am;
-            $group_log_data['total_paid'] = $t_paid + $request->input('pay_amount');
+            $group_log_data['total_paid'] = $t_paid;
             $group_log_data['total_due'] = $t_am - ($t_paid + $request->input('pay_amount'));
             $group_log_data['last_paid'] = $request->input('pay_amount');
             
@@ -115,6 +117,39 @@ class PayGroupBill extends Controller
 
 
     public function groupTransectionHistory(){
-        return view('payGroupBill.groupTransectionhistory');
+        $group_log_data = DB::select(DB::raw(" SELECT groups.name as groupname,  group_logs.id as groupid, group_logs.description as description, group_logs.total_amount as total_amount, group_logs.total_paid as total_paid, group_logs.last_paid as last_paid
+            FROM group_logs
+            LEFT JOIN groups
+            ON group_logs.group_id = groups.id
+            ORDER BY group_logs.id DESC
+            ")); 
+        return view('payGroupBill.groupTransectionhistory',compact('group_log_data'));
+    }
+
+    public function partialGroupBillPay($id){
+
+        return view('payGroupBill.partialGroupBillPay', compact('id'));
+
+    }
+
+    public function partialGroupBillPayStore(Request $request, $id){
+
+        $request->validate(['amount' => 'required | integer']);
+
+        Group_log::where('id', $id)
+          ->update([
+            'last_paid' => Group_log::find($id)->last_paid + $request->input('amount'),
+          ]);
+
+          return redirect(route('group.TransectionHistory'))->with('success', 'Your group transection has been updated!');
+
+    }
+
+    public function groupTransectionHistoryDelete(Request $request, $id){
+
+        (Group_log::find($id))->delete();
+
+          return redirect(route('group.TransectionHistory'))->with('success', 'Your group transection data has been deleted!');
+
     }
 }

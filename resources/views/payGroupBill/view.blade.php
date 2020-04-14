@@ -13,7 +13,7 @@
 	            <h3 class="card-title">Pay Group {{$group->name}} Bill</h3>
 	        </div>
 
-	        <form role="form" action="{{route('group.payBill',$group->id)}}" method="POST">
+	        <form role="form" class="prevent-multiple-submit" action="{{route('group.payBill',$group->id)}}" method="POST">
 	            @csrf
 	            <div class="card-body">
 	               
@@ -36,11 +36,22 @@
 				</div>
 
 				<div class="card-footer">
-				    <button type="submit" class="btn btn-primary">Submit</button>
+				    <button type="submit" class="btn btn-primary disable-submit-button">Submit</button>
 				</div>
 
 			</form>
 		</div>
 
 	</div>
+@endsection
+
+
+@section('js')
+  <script>
+    $(document).ready(function () {
+        $('.prevent-multiple-submit').on('submit', function(){
+            $('.disable-submit-button').attr('disabled','true');
+        });
+    });
+</script>
 @endsection

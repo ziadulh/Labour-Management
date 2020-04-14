@@ -64,3 +64,6 @@ Route::get('viewGroupLog','PayGroupBill@viewGroupLog')->name('group.viewGroupLog
 /*Route::get('payGroupLogView/{id}','PayGroupBill@payGroupLogView')->name('group.payGroupLogView');
 Route::post('payGroupBillToLog/{id}','PayGroupBill@payGroupBillToLog')->name('group.payGroupBillToLog');*/
 Route::get('groupTransectionHistory','PayGroupBill@groupTransectionHistory')->name('group.TransectionHistory');
+Route::get('partialGroupBillPay/{id}','PayGroupBill@partialGroupBillPay')->name('group.partialBillPay');
+Route::put('partialGroupBillPayStore/{id}','PayGroupBill@partialGroupBillPayStore')->name('group.partialBillPayStore');
+Route::get('groupTransectionHistoryDelete/{id}','PayGroupBill@groupTransectionHistoryDelete')->name('group.TransectionHistoryDelete');

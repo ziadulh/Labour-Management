@@ -15,7 +15,7 @@
         <h3 class="card-title">Update Labour Information</h3>
     </div>
 
-    <form role="form" action="{{route('labour.update',$labour->id)}}" method="POST">
+    <form role="form" class="prevent-multiple-submit" action="{{route('labour.update',$labour->id)}}" method="POST">
         @csrf
         <div class="card-body">
 
@@ -45,7 +45,7 @@
 
                         <div class="form-group">
                             <label for="labour_type"><span style="color:red">*</span>Labour type</label>
-                            <select id="group_id" class="form-control " style="width: 100%;" name="labour_type">
+                            <select id="group_id" class="form-control " style="width: 100%;" name="labour_type" readonly>
                                 @foreach($labour_type as $labour_type)
                                 <option value="{{$labour_type->id}}" {{ ($labour_type->id == $labour->labour_type)? 'selected' : '' }} > {{$labour_type->name}}</option>
                                 @endforeach
@@ -63,7 +63,7 @@
 
                         <div class="form-group">
                             <label for="building_id"><span style="color:red">*</span>Building</label>
-                            <select id="building_id" class="form-control " style="width: 100%;" name="building_id">
+                            <select id="building_id" class="form-control " style="width: 100%;" name="building_id" readonly>
                                 @foreach($building as $building)
                                 <option value="{{$building->id}}" {{ ($building->id == $labour->building_id)? 'selected' : '' }}> {{$building->name}}</option>
                                 @endforeach
@@ -84,7 +84,7 @@
 
                         <div class="form-group">
                             <label for="total_paid"><span style="color:red">*</span>Total  খোরাকী Paid</label>
-                            <input type="text" class="form-control" id="total_paid" value="{{ $labour->total_paid }}" name="total_paid">
+                            <input type="text" class="form-control" id="total_paid" value="{{ $labour->total_paid }}" name="total_paid" readonly>
                         </div>
 
 
@@ -98,7 +98,7 @@
 
                         <div class="form-group">
                             <label for="total_attendance"><span style="color:red">*</span> Total হাজিরা </label>
-                            <input type="text" class="form-control" id="total_attendance" value="{{ $labour->total_attendance }}" name="total_attendance">
+                            <input type="text" class="form-control" id="total_attendance" value="{{ $labour->total_attendance }}" name="total_attendance" readonly>
                         </div>
 
 
@@ -128,7 +128,7 @@
 
                         <div class="form-group">
                             <label><span style="color:red">*</span>Status</label>
-                            <select class="form-control " style="width: 100%;" name="status">
+                            <select class="form-control " style="width: 100%;" name="status" readonly>
                                 <option {{ ($labour->status == 1) ? 'selected' : '' }} value="1" >Yes</option>
                                 <option {{ ($labour->status == 0) ? 'selected' : '' }} value="0">No</option>
                             </select>
@@ -156,7 +156,7 @@
     {{method_field('PUT')}}
 
     <div class="card-footer">
-        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+        <button type="submit" class="btn btn-primary disable-submit-button">Submit</button>
     </div>
 
 </form>
@@ -164,4 +164,15 @@
 
 
 
+@endsection
+
+
+@section('js')
+  <script>
+    $(document).ready(function () {
+        $('.prevent-multiple-submit').on('submit', function(){
+            $('.disable-submit-button').attr('disabled','true');
+        });
+    });
+</script>
 @endsection
