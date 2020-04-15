@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\labourType;
+use App\LabourType;
 
 class LabourTypeController extends Controller
 {
@@ -44,7 +44,7 @@ class LabourTypeController extends Controller
             'created_by' => auth()->user()->id,
         );
 
-        labourType::create($data);
+        LabourType::create($data);
 
         return redirect(route('labourType.index'))->with('success', 'Labour type has been created successfully!');
     }
@@ -68,7 +68,7 @@ class LabourTypeController extends Controller
      */
     public function edit($id)
     {
-        $data = labourType::find($id);
+        $data = LabourType::find($id);
         return view('labourType.edit',compact('data'));
     }
 
@@ -83,7 +83,7 @@ class LabourTypeController extends Controller
     {
         $request->validate(['name' => 'required']);
 
-        labourType::where('id', $id)
+        LabourType::where('id', $id)
           ->update([
             'name' => $request->input('name'),
             'status' => $request->input('status'),
@@ -101,7 +101,7 @@ class LabourTypeController extends Controller
      */
     public function destroy($id)
     {
-        (labourType::find($id))->delete();
+        (LabourType::find($id))->delete();
         return redirect(route('labourType.index',$id))->with('success', 'Labour type has been deleted successfully!');
     }
 }
