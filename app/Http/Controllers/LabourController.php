@@ -173,7 +173,7 @@ class LabourController extends Controller
     {
 
         $request->validate([
-            'attendence' => 'required', 'food_rate_date' => 'required | integer', 'food_rate_will_get ' => 'required | integer'
+            'attendence' => 'required', 'food_rate_date' => 'required', 'food_rate_will_get ' => 'required | integer'
         ]);
 
         $data = Labour::find($id);
